@@ -19,9 +19,9 @@ def create_chat_view_page(state: AppState, api: ApiClient):
             is_mine = msg.user_id == state.current_user.id
             bubble = ft.Container(
                 content=ft.Text(msg.text, color="white" if is_mine else "black", size=14),
-                padding=ft.padding.symmetric(horizontal=12, vertical=8),
+                padding=ft.Padding.symmetric(horizontal=12, vertical=8),
                 border_radius=12,
-                bgcolor=ft.colors.BLUE if is_mine else "grey[200]",
+                bgcolor='blue' if is_mine else "grey[200]",
                 alignment=ft.alignment.center_right if is_mine else ft.alignment.center_left,
                 width=min(280, max(80, len(msg.text) * 8 + 40))
             )
@@ -39,16 +39,16 @@ def create_chat_view_page(state: AppState, api: ApiClient):
 
     header = ft.Container(
         content=ft.Row([
-            ft.IconButton(ft.icons.ARROW_BACK, on_click=lambda e: state.navigate_to("/chats"), icon_color="white"),
+            ft.IconButton('arrow_back', on_click=lambda e: state.navigate_to("/chats"), icon_color="white"),
             ft.Text(state.active_chat.name if state.active_chat else "Чат", size=20, weight="bold", color="white"),
             ft.Container(expand=True)
         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-        padding=ft.padding.symmetric(horizontal=16, vertical=14),
-        bgcolor=ft.colors.BLUE,
-        border_radius=ft.border_radius.only(top_left=8, top_right=8)
+        padding=ft.Padding.symmetric(horizontal=16, vertical=14),
+        bgcolor='blue',
+        border_radius=ft.BorderRadius.only(top_left=8, top_right=8, bottom_left=0, bottom_right=0)
     )
 
-    load_container = ft.Container(content=messages_container, expand=True)#, on_load=load_messages)
+    load_container = ft.Container(content=messages_container, expand=True, on_load=load_messages)
 
     return ft.Column(
         controls=[
